@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
+import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import IconButton from '@mui/material/IconButton';
 
@@ -11,12 +12,7 @@ export default function DateCards({ month, year, MyCalendarData, openModel }) {
   const [task_data, setTaskData] = useState([]);
 
   useEffect(() => {
-    function generate_date_data(
-      date,
-      month_calculated,
-      year_calculated,
-      is_selected_month = false
-    ) {
+    function generate_date_data(date, month_calculated, year_calculated, is_selected_month = false) {
       return {
         id: `${date.toString()}_${(month_calculated + 1).toString()}`,
         date,
@@ -55,11 +51,7 @@ export default function DateCards({ month, year, MyCalendarData, openModel }) {
       let i = 0;
       while (i < first_day_of_month) {
         dates_info.push(
-          generate_date_data(
-            last_date_of_last_month - first_day_of_month + 1 + i,
-            previous_month,
-            previous_year
-          )
+          generate_date_data(last_date_of_last_month - first_day_of_month + 1 + i, previous_month, previous_year)
         );
         i += 1;
       }
@@ -82,16 +74,15 @@ export default function DateCards({ month, year, MyCalendarData, openModel }) {
       }
     }
 
-    console.log(dates_info);
     setTaskData(dates_info);
   }, [MyCalendarData, month, year]);
 
-  const openTaskDataModel = (event, date_task_data) => {
+  const openTaskDataModel = (event, post) => {
     openModel({
-      date: event.target.getAttribute('date'),
-      month: event.target.getAttribute('month'),
-      year: event.target.getAttribute('year'),
-      data: date_task_data,
+      date: post.date.toString(),
+      month: (post.month - 1).toString(),
+      year: post.year.toString(),
+      data: post.data,
     });
   };
 
@@ -112,30 +103,43 @@ export default function DateCards({ month, year, MyCalendarData, openModel }) {
           md={12 / 7}
           sx={{
             p: 0,
+            ...(!post.is_selected_month && {
+              color: '#aaa',
+            }),
+            borderBottom: 'rgb(218,220,224) 1px solid',
+            borderRight: 'rgb(218,220,224) 1px solid',
           }}
         >
-          <Box
-            sx={{
-              borderBottom: 'rgb(218,220,224) 1px solid',
-              borderRight: 'rgb(218,220,224) 1px solid',
-              ...(!post.is_selected_month && {
-                color: '#aaa',
-              }),
-            }}
+          <Grid
+            container
+            justifyContent="space-between"
+            alignItems="center"
+            flexDirection={{ xs: 'column', sm: 'row' }}
           >
-            {post.data.length <= 2 && (
-              <IconButton
-                date={post.date}
-                month={post.month}
-                year={post.year}
-                onClick={(event) => openTaskDataModel(event, post.data)}
-              >
-                +
-              </IconButton>
-            )}
-            <p>{post.date}</p>
-            <p>{post.data.length > 0 ? post.data[0].name : ''}</p>
-          </Box>
+            <Grid
+              sx={{
+                paddingLeft: 1,
+              }}
+            >
+              {post.date}
+            </Grid>
+            <Grid container columnSpacing={1}>
+              <Grid>
+                {post.data.length <= 2 && (
+                  <IconButton onClick={(event) => openTaskDataModel(event, post)}>
+                    <Icon icon="mdi:add-circle-outline" />
+                  </IconButton>
+                )}
+              </Grid>
+            </Grid>
+          </Grid>
+          {post.data.length > 0 && (
+            <Paper elevation={2} sx={{ marginLeft: 1 }}>
+              {post.data.map((task) => (
+                <div>{task.name}</div>
+              ))}
+            </Paper>
+          )}
         </Grid>
       ))}
     </Grid>
