@@ -8,6 +8,7 @@ import PrivateRoute from '../auth/PrivateRoute';
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
 export const CalendarPage = lazy(() => import('src/pages/calendar'));
+export const CalendarDemoPage = lazy(() => import('src/pages/calendar-demo'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
@@ -37,6 +38,10 @@ export default function Router() {
               <CalendarPage />
             </PrivateRoute>
           ),
+        },
+        {
+          path: 'calendar-demo',
+          element: <CalendarDemoPage />,
         },
       ],
     },

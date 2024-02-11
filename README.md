@@ -15,16 +15,21 @@
 
 ## Todo
 
-- Store Data in DB
-- Task completion, checkbox
-- Test Demo link
-- Check for empty and duplicate tasks before save
-- Delete
-- SignUp
-- Mobile Friendly
-- Metrics Graph
-- Refresh Token for Login
-- Dark Mode
+- [ ] Change Icon & remove links
+- [ ] Logout button
+- [ ] Delete Task
+- [ ] Sync Data
+- [ ] Month Change Button
+- [ ] Check for empty and duplicate tasks before save
+- [ ] SignUp
+- [ ] Handle Year change
+- [ ] Mobile Friendly
+- [ ] Refresh Token for Login
+- [ ] Metrics Graph
+- [ ] Dark Mode
+- [x] ~~Store Data in DB~~
+- [x] ~~Task completion, checkbox~~
+- [x] ~~Test Demo link~~
 
 ## License
 
