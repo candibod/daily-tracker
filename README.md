@@ -13,6 +13,14 @@
 - **Start:** `yarn dev`
 - **Build:** `yarn build`
 
+## Todo
+
+- SignUp
+- Mobile Friendly
+- Metrics Graph
+- Refresh Token for Login
+- Dark Mode
+
 ## License
 
 Distributed under the MIT License. See [LICENSE](https://github.com/minimal-ui-kit/minimal.free/blob/main/LICENSE.md) for more information.

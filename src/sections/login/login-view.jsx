@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -20,6 +21,8 @@ import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 
+import { auth } from '../../auth/firebase';
+
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
@@ -27,21 +30,33 @@ export default function LoginView() {
 
   const router = useRouter();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClick = () => {
-    router.push('/dashboard');
+  const handleClick = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        router.push('/calendar');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
 
   const renderForm = (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
+        <TextField name="email" label="Email address" onChange={(e) => setEmail(e.target.value)} />
 
         <TextField
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
+          onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -60,14 +75,7 @@ export default function LoginView() {
         </Link>
       </Stack>
 
-      <LoadingButton
-        fullWidth
-        size="large"
-        type="submit"
-        variant="contained"
-        color="inherit"
-        onClick={handleClick}
-      >
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" color="inherit" onClick={handleClick}>
         Login
       </LoadingButton>
     </>
@@ -108,6 +116,14 @@ export default function LoginView() {
             </Link>
           </Typography>
 
+          {renderForm}
+
+          <Divider sx={{ my: 3 }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              OR
+            </Typography>
+          </Divider>
+
           <Stack direction="row" spacing={2}>
             <Button
               fullWidth
@@ -139,14 +155,6 @@ export default function LoginView() {
               <Iconify icon="eva:twitter-fill" color="#1C9CEA" />
             </Button>
           </Stack>
-
-          <Divider sx={{ my: 3 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              OR
-            </Typography>
-          </Divider>
-
-          {renderForm}
         </Card>
       </Stack>
     </Box>
