@@ -15,6 +15,11 @@
 
 ## Todo
 
+- Store Data in DB
+- Task completion, checkbox
+- Test Demo link
+- Check for empty and duplicate tasks before save
+- Delete
 - SignUp
 - Mobile Friendly
 - Metrics Graph

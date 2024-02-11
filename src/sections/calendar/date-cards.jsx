@@ -136,7 +136,7 @@ export default function DateCards({ month, year, MyCalendarData, openModel }) {
           {post.data.length > 0 && (
             <Paper elevation={2} sx={{ marginLeft: 1 }}>
               {post.data.map((task) => (
-                <div>{task.name}</div>
+                <div key={task.name}>{task.name}</div>
               ))}
             </Paper>
           )}

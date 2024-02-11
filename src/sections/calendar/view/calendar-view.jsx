@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+// import { ref, set } from 'firebase/database';
 
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
@@ -8,6 +9,7 @@ import MyCalendarData from 'src/_mock/calender_data.json';
 
 import DateCards from '../date-cards';
 import TaskDataForm from '../task-data-form';
+// import { database } from '../../../auth/firebase';
 // ----------------------------------------------------------------------
 
 export default function CalendarView() {
@@ -22,6 +24,14 @@ export default function CalendarView() {
       setMonth(now.getMonth());
       setYear(now.getFullYear());
     }
+
+    // function writeUserData(userId, name, email, imageUrl) {
+    //   set(ref(database, 'users/' + userId), {
+    //     username: name,
+    //     email: email,
+    //     profile_picture: imageUrl,
+    //   });
+    // }
   }, [month, year]);
 
   const openModel = (data) => {

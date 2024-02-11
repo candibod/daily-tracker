@@ -5,7 +5,7 @@ import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
 
 import Router from 'src/routes/sections';
 import ThemeProvider from 'src/theme';
-
+import AuthProvider from './auth/AuthProvider';
 // ----------------------------------------------------------------------
 
 export default function App() {
@@ -13,7 +13,9 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <Router />
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

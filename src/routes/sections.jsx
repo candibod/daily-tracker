@@ -3,7 +3,7 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 
-import ProtectedRoute from '../auth/ProtectedRoute';
+import PrivateRoute from '../auth/PrivateRoute';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -33,9 +33,9 @@ export default function Router() {
         {
           path: 'calendar',
           element: (
-            <ProtectedRoute>
+            <PrivateRoute>
               <CalendarPage />
-            </ProtectedRoute>
+            </PrivateRoute>
           ),
         },
       ],
