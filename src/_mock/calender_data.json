@@ -1,0 +1,60 @@
+{
+  "2024": {
+    "0": {},
+    "1": {
+      "1": [
+        {
+          "id": 1,
+          "name": "medicine",
+          "type": "checkbox",
+          "order": 1,
+          "status": null
+        }
+      ],
+      "2": [
+        {
+          "id": 1,
+          "name": "medicine",
+          "type": "checkbox",
+          "order": 1,
+          "status": null
+        },
+        {
+          "id": 2,
+          "name": "Brush",
+          "type": "checkbox",
+          "order": 2,
+          "status": null
+        }
+      ]
+    },
+    "2": {
+      "1": [
+        {
+          "id": 1,
+          "name": "medicine",
+          "type": "checkbox",
+          "order": 1,
+          "status": null
+        }
+      ],
+      "2": [
+        {
+          "id": 1,
+          "name": "medicine",
+          "type": "checkbox",
+          "order": 1,
+          "status": null
+        },
+        {
+          "id": 2,
+          "name": "Brush",
+          "type": "checkbox",
+          "order": 2,
+          "status": null
+        }
+      ]
+    },
+    "3": {}
+  }
+}
