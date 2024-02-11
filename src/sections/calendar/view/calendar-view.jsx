@@ -20,15 +20,10 @@ export default function CalendarView() {
   const { user } = useContext(AuthContext);
 
   const getTaskData = useCallback(() => {
-    console.log('user');
     if (user) {
-      // set(ref(database, `users/${user.uid}`), {
-      //   username: 'test',
-      // });
       const starCountRef = ref(database, `users/${user.uid}`);
       onValue(starCountRef, (snapshot) => {
         const data = snapshot.val();
-        console.log('firebase', data);
         if (data) setTaskData(data);
       });
     }
