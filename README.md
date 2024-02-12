@@ -23,6 +23,8 @@
 - [ ] Check for empty and duplicate tasks before save
 - [ ] SignUp
 - [ ] Handle Year change
+- [ ] Multi Layer tasks
+- [ ] Generic Tasks
 - [ ] Mobile Friendly
 - [ ] Refresh Token for Login
 - [ ] Metrics Graph

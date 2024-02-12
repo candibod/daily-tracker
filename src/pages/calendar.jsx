@@ -8,7 +8,7 @@ export default function BlogPage() {
   return (
     <>
       <Helmet>
-        <title> Calendar | Minimal UI </title>
+        <title> Calendar | Daily Tracker </title>
       </Helmet>
 
       <CalendarView />

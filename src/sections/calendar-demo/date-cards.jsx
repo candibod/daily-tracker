@@ -138,7 +138,7 @@ export default function DateCards({ month, year, MyCalendarData, openModel, upda
             </Grid>
             <Grid container columnSpacing={1}>
               <Grid>
-                {post.data.length > 0 && (
+                {post.data.length > -1 && (
                   <IconButton onClick={(event) => openTaskDataModel(event, post)}>
                     <Icon icon="mdi:add-circle-outline" />
                   </IconButton>
