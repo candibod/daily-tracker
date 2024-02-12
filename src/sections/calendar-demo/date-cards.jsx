@@ -111,8 +111,8 @@ export default function DateCards({ month, year, MyCalendarData, openModel, upda
       {task_data.map((post) => (
         <Grid
           key={post.id}
-          xs={12}
-          sm={6}
+          xs={6}
+          sm={4}
           md={12 / 7}
           sx={{
             p: 0,
@@ -138,7 +138,7 @@ export default function DateCards({ month, year, MyCalendarData, openModel, upda
             </Grid>
             <Grid container columnSpacing={1}>
               <Grid>
-                {post.data.length <= 2 && (
+                {post.data.length > 0 && (
                   <IconButton onClick={(event) => openTaskDataModel(event, post)}>
                     <Icon icon="mdi:add-circle-outline" />
                   </IconButton>

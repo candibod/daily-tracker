@@ -1,24 +1,24 @@
-## Minimal [(Free version)](https://minimal-kit-react.vercel.app/)
+## Daily Tracker [(Beta)](https://daily-tracker-eight.vercel.app/)
 
 ![license](https://img.shields.io/badge/license-MIT-blue.svg)
 
-> Free React Admin Dashboard made with Material-UI components and React.
+> Free React Daily Planner made with Material-UI components and React.
 
-![preview](public/assets/preview.jpg)
+![preview](public/assets/preview.png)
 
 ## Quick start
 
 - Recommended `Node.js v18.x`.
-- **Install:** `yarn install`
-- **Start:** `yarn dev`
-- **Build:** `yarn build`
+- **Install:** `npm install`
+- **Start:** `npm run dev`
+- **Build:** `npm run build`
 
 ## Todo
 
-- [ ] Change Icon & remove links
+- [ ] Copy tasks
 - [ ] Logout button
 - [ ] Delete Task
-- [ ] Sync Data
+- [ ] Icon support in text
 - [ ] Month Change Button
 - [ ] Check for empty and duplicate tasks before save
 - [ ] SignUp
@@ -30,6 +30,7 @@
 - [x] ~~Store Data in DB~~
 - [x] ~~Task completion, checkbox~~
 - [x] ~~Test Demo link~~
+- [x] ~~Change Icon & remove links~~
 
 ## License
 

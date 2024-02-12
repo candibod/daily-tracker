@@ -8,12 +8,12 @@ const navConfig = [
   {
     title: 'calendar',
     path: '/calendar',
-    icon: icon('ic_blog'),
+    icon: icon('ic_calendar'),
   },
   {
     title: 'Calendar demo',
     path: '/calendar-demo',
-    icon: icon('ic_blog'),
+    icon: icon('ic_calendar'),
   },
   {
     title: 'login',
