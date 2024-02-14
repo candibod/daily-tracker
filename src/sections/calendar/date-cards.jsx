@@ -11,8 +11,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 // ----------------------------------------------------------------------
 
-export default function DateCards({ month, year, MyCalendarData, openModel, updateTaskStatus }) {
+export default function DateCards({ month, year, MyCalendarData, openModel, updateTaskStatus, updateTaskData }) {
   const [task_data, setTaskData] = useState([]);
+  const [copiedTaskData, setCopiedTaskData] = useState([]);
 
   useEffect(() => {
     function generate_date_data(date, month_calculated, year_calculated, is_selected_month = false) {
@@ -99,76 +100,123 @@ export default function DateCards({ month, year, MyCalendarData, openModel, upda
     });
   };
 
+  const copyTaskData = (event, post) => {
+    const new_tasks = [];
+    post.data.forEach((elem) => {
+      new_tasks.push({ ...elem, status: 'dnf' });
+    });
+    setCopiedTaskData(new_tasks);
+  };
+
+  const pasteTaskData = (event, post) => {
+    updateTaskData({
+      date: post.date.toString(),
+      month: (post.month - 1).toString(),
+      year: post.year.toString(),
+      tasks: copiedTaskData,
+    });
+    setCopiedTaskData([]);
+  };
+
   return (
-    <Grid
-      container
-      spacing={3}
-      sx={{
-        borderTop: 'rgb(218,220,224) 1px solid',
-        borderLeft: 'rgb(218,220,224) 1px solid',
-      }}
-    >
-      {task_data.map((post) => (
-        <Grid
-          key={post.id}
-          xs={6}
-          sm={4}
-          md={12 / 7}
-          sx={{
-            p: 0,
-            ...(!post.is_selected_month && {
-              color: '#aaa',
-            }),
-            borderBottom: 'rgb(218,220,224) 1px solid',
-            borderRight: 'rgb(218,220,224) 1px solid',
-          }}
-        >
+    <>
+      <Grid container spacing={2} sx={{ display: { xs: 'none', md: 'flex' } }}>
+        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+          <Grid md={12 / 7} sx={{ textAlign: 'center', marginBottom: 0.5, fontSize: '0.8rem', color: '#aaa' }}>
+            {day}
+          </Grid>
+        ))}
+      </Grid>
+      <Grid
+        container
+        spacing={3}
+        sx={{
+          borderTop: 'rgb(218,220,224) 1px solid',
+          borderLeft: 'rgb(218,220,224) 1px solid',
+        }}
+      >
+        {task_data.map((post) => (
           <Grid
-            container
-            justifyContent="space-between"
-            alignItems="center"
-            flexDirection={{ xs: 'column', sm: 'row' }}
+            key={post.id}
+            xs={6}
+            sm={4}
+            md={12 / 7}
+            sx={{
+              p: 0,
+              ...(!post.is_selected_month && {
+                color: '#aaa',
+              }),
+              borderBottom: 'rgb(218,220,224) 1px solid',
+              borderRight: 'rgb(218,220,224) 1px solid',
+              '&:hover .copy-button': {
+                visibility: 'inherit',
+              },
+            }}
           >
-            <Grid
-              sx={{
-                paddingLeft: 1,
-              }}
-            >
-              {post.date}
-            </Grid>
-            <Grid container columnSpacing={1}>
-              <Grid>
-                {post.data.length > -1 && (
-                  <IconButton onClick={(event) => openTaskDataModel(event, post)}>
-                    <Icon icon="mdi:add-circle-outline" />
-                  </IconButton>
+            <Grid container justifyContent="space-between" alignItems="center" flexDirection={{ xs: 'row' }}>
+              <Grid
+                sx={{
+                  paddingLeft: 1,
+                }}
+              >
+                {post.date}
+              </Grid>
+              <Grid container columnSpacing={1}>
+                {post.data.length === 0 ? (
+                  <>
+                    <IconButton onClick={(event) => openTaskDataModel(event, post)}>
+                      <Icon icon="mdi:add-circle-outline" />
+                    </IconButton>
+                    {copiedTaskData.length > 0 && (
+                      <IconButton onClick={(event) => pasteTaskData(event, post)}>
+                        <Icon icon="ic:baseline-content-paste" />
+                      </IconButton>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <IconButton
+                      sx={{ visibility: 'hidden' }}
+                      className="copy-button"
+                      onClick={(event) => copyTaskData(event, post)}
+                    >
+                      <Icon icon="ic:outline-content-copy" />
+                    </IconButton>
+                    <IconButton
+                      sx={{ visibility: 'hidden' }}
+                      className="copy-button"
+                      onClick={(event) => openTaskDataModel(event, post)}
+                    >
+                      <Icon icon="ic:baseline-edit" />
+                    </IconButton>
+                  </>
                 )}
               </Grid>
             </Grid>
+            {post.data.length > 0 && (
+              <Paper elevation={2} sx={{ marginLeft: 0.5, marginRight: 0.5, marginBottom: 0.5 }}>
+                <FormGroup sx={{ paddingLeft: 1.2, paddingRight: 1, wordBreak: 'break-all' }}>
+                  {post.data.map((task) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={task.status === 'done'}
+                          onChange={(event) => changeTaskStatus(event, post, task)}
+                          sx={{ p: 0.5 }}
+                          size="small"
+                        />
+                      }
+                      key={task.id}
+                      label={task.name}
+                    />
+                  ))}
+                </FormGroup>
+              </Paper>
+            )}
           </Grid>
-          {post.data.length > 0 && (
-            <Paper elevation={2} sx={{ marginLeft: 0.5, marginRight: 0.5, marginBottom: 0.5 }}>
-              <FormGroup sx={{ paddingLeft: 1.2, paddingRight: 1, wordBreak: 'break-all' }}>
-                {post.data.map((task) => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={task.status === 'done'}
-                        onChange={(event) => changeTaskStatus(event, post, task)}
-                        sx={{ p: 0.5 }}
-                        size="small"
-                      />
-                    }
-                    key={task.id}
-                    label={task.name}
-                  />
-                ))}
-              </FormGroup>
-            </Paper>
-          )}
-        </Grid>
-      ))}
-    </Grid>
+        ))}
+      </Grid>
+    </>
   );
 }
 
@@ -178,4 +226,5 @@ DateCards.propTypes = {
   MyCalendarData: PropTypes.object,
   openModel: PropTypes.func,
   updateTaskStatus: PropTypes.func,
+  updateTaskData: PropTypes.func,
 };

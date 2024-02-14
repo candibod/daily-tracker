@@ -54,6 +54,14 @@ export default function TaskDataForm({ taskData, updateTaskData }) {
     setTasks(new_tasks);
   };
 
+  const deleteTask = (task_id) => {
+    const new_tasks = [];
+    tasks.forEach((elem) => {
+      if (elem.id !== task_id) new_tasks.push({ ...elem });
+    });
+    setTasks(new_tasks);
+  };
+
   const saveTask = (event) => {
     event.preventDefault();
     const new_task_data = [];
@@ -151,7 +159,7 @@ export default function TaskDataForm({ taskData, updateTaskData }) {
                   <IconButton aria-label="edit" onClick={() => editTask(task.id)}>
                     <Icon icon="mdi:edit-outline" />
                   </IconButton>
-                  <IconButton aria-label="edit">
+                  <IconButton aria-label="edit" onClick={() => deleteTask(task.id)}>
                     <Icon icon="mdi:delete-outline" />
                   </IconButton>
                 </Grid>

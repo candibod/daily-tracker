@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { signOut } from 'firebase/auth';
 
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -9,7 +10,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
+import { useRouter } from 'src/routes/hooks';
+
 import { account } from 'src/_mock/account';
+
+import { auth } from '../../../auth/firebase';
 
 // ----------------------------------------------------------------------
 
@@ -32,12 +37,20 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
+  const router = useRouter();
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
 
   const handleClose = () => {
+    signOut(auth)
+      .then(() => {
+        router.push('/login');
+      })
+      .catch((error) => {
+        // An error happened.
+      });
     setOpen(null);
   };
 

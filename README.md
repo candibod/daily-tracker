@@ -15,17 +15,13 @@
 
 ## Todo
 
-- [ ] Copy tasks
-- [ ] Logout button
-- [ ] Delete Task
-- [ ] Icon support in text
-- [ ] Month Change Button
+- [ ] Mobile Friendly
 - [ ] Check for empty and duplicate tasks before save
 - [ ] SignUp
-- [ ] Handle Year change
+- [ ] Icon support in text
+- [ ] Handle read/write query efficiently(with date and year)
 - [ ] Multi Layer tasks
 - [ ] Generic Tasks
-- [ ] Mobile Friendly
 - [ ] Refresh Token for Login
 - [ ] Metrics Graph
 - [ ] Dark Mode
@@ -33,6 +29,11 @@
 - [x] ~~Task completion, checkbox~~
 - [x] ~~Test Demo link~~
 - [x] ~~Change Icon & remove links~~
+- [x] ~~Copy tasks~~
+- [x] ~~Logout button~~
+- [x] ~~Delete Task~~
+- [x] ~~Month Change Button~~
+- [x] ~~Handle Year change~~
 
 ## License
 
