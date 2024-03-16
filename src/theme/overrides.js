@@ -45,6 +45,12 @@ export function overrides(theme) {
           display: 'inline-block',
           verticalAlign: 'bottom',
         },
+        '.readable-text': {
+          fontSize: '13px !important',
+          '@media (max-width:1920px)': {
+            fontSize: '12px !important',
+          },
+        },
       },
     },
     MuiBackdrop: {

@@ -7,6 +7,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Unstable_Grid2';
 import FormGroup from '@mui/material/FormGroup';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 // ----------------------------------------------------------------------
@@ -207,7 +208,7 @@ export default function DateCards({ month, year, MyCalendarData, openModel, upda
                         />
                       }
                       key={task.id}
-                      label={task.name}
+                      label={<Typography className="readable-text">{task.name}</Typography>}
                     />
                   ))}
                 </FormGroup>

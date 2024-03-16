@@ -89,7 +89,7 @@ export default function CalendarView() {
   };
 
   return (
-    <Container>
+    <Container maxWidth={false}>
       <Grid container justifyContent="space-between" alignItems="center" flexDirection={{ xs: 'row' }} mb={5}>
         <Typography variant="h4" sx={{ order: { xs: 2, sm: 1 } }}>
           Calendar
