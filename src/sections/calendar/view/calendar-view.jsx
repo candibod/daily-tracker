@@ -101,7 +101,7 @@ export default function CalendarView() {
     newTaskData[data.year][data.month][data.date] = new_tasks;
     setTaskData(newTaskData);
 
-    set(ref(database, `users/${user.uid}`), newTaskData);
+    set(ref(database, `users/${user.uid}/tasks`), newTaskData);
   };
 
   const changeMonth = (direction) => {
