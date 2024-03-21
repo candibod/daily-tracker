@@ -1,7 +1,11 @@
 import { Icon } from '@iconify/react';
+import EditorJS from '@editorjs/editorjs';
+import Checklist from '@editorjs/checklist';
+import NestedList from '@editorjs/nested-list';
 import { ref, set, onValue } from 'firebase/database';
-import { useState, useEffect, useContext, useCallback } from 'react';
+import { useRef, useState, useEffect, useContext, useCallback } from 'react';
 
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -20,18 +24,48 @@ export default function CalendarView() {
   const [taskData, setTaskData] = useState({});
   const [selectedDateTaskData, setSelectedDateTaskData] = useState({});
   const { user } = useContext(AuthContext);
+  const editorData = useRef({});
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+  const editorInstance = useRef(null);
   const getTaskData = useCallback(() => {
     if (user) {
       if (Object.keys(taskData).length > 0) return;
       const starCountRef = ref(database, `users/${user.uid}`);
       onValue(starCountRef, (snapshot) => {
         const data = snapshot.val();
-        if (data) setTaskData(data);
+        if (data) {
+          setTaskData(data.tasks);
+          if (editorInstance.current === null) {
+            initEditor(data.editorData);
+            editorInstance.current = '';
+          }
+        }
       });
     }
   }, [user, taskData]);
+
+  const initEditor = (savedData) => {
+    const editor = new EditorJS({
+      holder: 'editor',
+      placeholder: 'Start Typing Here...!',
+      tools: {
+        list: {
+          class: NestedList,
+          inlineToolbar: true,
+        },
+        checklist: {
+          class: Checklist,
+          inlineToolbar: true,
+        },
+      },
+      onChange: async () => {
+        const content = await editor.saver.save();
+        editorData.current = content;
+      },
+      data: savedData,
+    });
+  };
 
   useEffect(() => {
     getTaskData();
@@ -88,6 +122,10 @@ export default function CalendarView() {
     }
   };
 
+  const saveContent = () => {
+    set(ref(database, `users/${user.uid}/editorData`), editorData.current);
+  };
+
   return (
     <Container maxWidth={false}>
       <Grid container justifyContent="space-between" alignItems="center" flexDirection={{ xs: 'row' }} mb={5}>
@@ -119,6 +157,12 @@ export default function CalendarView() {
         updateTaskData={updateTaskData}
       />
       <TaskDataForm taskData={selectedDateTaskData} updateTaskData={updateTaskData} />
+      <div className="editor">
+        <div id="editor" />
+        <Button onClick={() => saveContent()} variant="outlined">
+          Save
+        </Button>
+      </div>
     </Container>
   );
 }
