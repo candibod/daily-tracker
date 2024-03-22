@@ -44,6 +44,10 @@ export default function AccountPopover() {
   };
 
   const handleClose = () => {
+    setOpen(null);
+  };
+
+  const handleLogout = () => {
     signOut(auth)
       .then(() => {
         router.push('/login');
@@ -51,7 +55,6 @@ export default function AccountPopover() {
       .catch((error) => {
         // An error happened.
       });
-    setOpen(null);
   };
 
   return (
@@ -100,9 +103,6 @@ export default function AccountPopover() {
           <Typography variant="subtitle2" noWrap>
             {account.displayName}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
-          </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
@@ -118,7 +118,7 @@ export default function AccountPopover() {
         <MenuItem
           disableRipple
           disableTouchRipple
-          onClick={handleClose}
+          onClick={handleLogout}
           sx={{ typography: 'body2', color: 'error.main', py: 1.5 }}
         >
           Logout
